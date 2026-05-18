@@ -10,8 +10,8 @@ import (
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 	"github.com/gin-gonic/gin"
 
-	"github.com/yourusername/api/database"
-	"github.com/yourusername/api/models"
+	"github.com/bimbambaap/bimbambaap/database"
+	"github.com/bimbambaap/bimbambaap/models"
 )
 
 // GetFeed — publieke feed, nieuwste posts eerst

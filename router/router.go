@@ -6,8 +6,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/yourusername/api/handlers"
-	"github.com/yourusername/api/middleware"
+	"github.com/bimbambaap/bimbambaap/handlers"
+	"github.com/bimbambaap/bimbambaap/middleware"
 )
 
 func Setup() *gin.Engine {

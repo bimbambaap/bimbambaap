@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	"github.com/yourusername/api/database"
-	"github.com/yourusername/api/router"
+	"github.com/bimbambaap/bimbambaap/database"
+	"github.com/bimbambaap/bimbambaap/router"
 )
 
 func main() {

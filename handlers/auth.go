@@ -9,9 +9,9 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 
-	"github.com/yourusername/api/database"
-	"github.com/yourusername/api/middleware"
-	"github.com/yourusername/api/models"
+	"github.com/bimbambaap/bimbambaap/database"
+	"github.com/bimbambaap/bimbambaap/middleware"
+	"github.com/bimbambaap/bimbambaap/models"
 )
 
 func Register(c *gin.Context) {
