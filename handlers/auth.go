@@ -67,11 +67,11 @@ func Login(c *gin.Context) {
 
 	var user models.User
 	err := database.DB.QueryRow(
-		`SELECT id, username, email, password, avatar_url, bio, created_at
+		`SELECT id, username, email, password, avatar_url, bio, is_admin, created_at
 		 FROM users WHERE email = $1`,
 		req.Email,
 	).Scan(&user.ID, &user.Username, &user.Email, &user.Password,
-		&user.AvatarURL, &user.Bio, &user.CreatedAt)
+		&user.AvatarURL, &user.Bio, &user.IsAdmin, &user.CreatedAt)
 
 	if err != nil {
 		// Geef altijd dezelfde foutmelding — verklap niet of email bestaat
@@ -102,11 +102,11 @@ func GetMe(c *gin.Context) {
 
 	var user models.User
 	err := database.DB.QueryRow(
-		`SELECT id, username, email, avatar_url, bio, created_at
+		`SELECT id, username, email, avatar_url, bio, is_admin, created_at
 		 FROM users WHERE id = $1`,
 		userID,
 	).Scan(&user.ID, &user.Username, &user.Email,
-		&user.AvatarURL, &user.Bio, &user.CreatedAt)
+		&user.AvatarURL, &user.Bio, &user.IsAdmin, &user.CreatedAt)
 
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Gebruiker niet gevonden"})
@@ -135,6 +135,34 @@ func UpdateProfile(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Profiel bijgewerkt"})
+}
+
+func SetAdmin(c *gin.Context) {
+	// Controleer of huidige user admin is
+	userID := c.GetInt("user_id")
+	var selfAdmin bool
+	database.DB.QueryRow("SELECT is_admin FROM users WHERE id = $1", userID).Scan(&selfAdmin)
+	if !selfAdmin {
+		c.JSON(http.StatusForbidden, gin.H{"error": "Geen rechten"})
+		return
+	}
+
+	targetID := c.Param("id")
+
+	var currentAdmin bool
+	err := database.DB.QueryRow("SELECT is_admin FROM users WHERE id = $1", targetID).Scan(&currentAdmin)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "Gebruiker niet gevonden"})
+		return
+	}
+
+	_, err = database.DB.Exec("UPDATE users SET is_admin = $1 WHERE id = $2", !currentAdmin, targetID)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Kon admin status niet wijzigen"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"is_admin": !currentAdmin})
 }
 
 // Helper: maak JWT token aan

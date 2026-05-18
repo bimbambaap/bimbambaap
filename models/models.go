@@ -3,13 +3,14 @@ package models
 import "time"
 
 type User struct {
-	ID        int       `json:"id"`
-	Username  string    `json:"username"`
-	Email     string    `json:"email,omitempty"` // omitempty = niet meesturen in publieke responses
-	Password  string    `json:"-"`               // nooit meesturen
-	AvatarURL string    `json:"avatar_url"`
-	Bio       string    `json:"bio"`
-	CreatedAt time.Time `json:"created_at"`
+    ID        int       `json:"id"`
+    Username  string    `json:"username"`
+    Email     string    `json:"email,omitempty"`
+    Password  string    `json:"-"`
+    AvatarURL string    `json:"avatar_url"`
+    Bio       string    `json:"bio"`
+    IsAdmin   bool      `json:"is_admin"`  // dit toevoegen
+    CreatedAt time.Time `json:"created_at"`
 }
 
 type Post struct {

@@ -41,7 +41,17 @@ func Setup() *gin.Engine {
 			{
 				users.GET("/me", handlers.GetMe)
 				users.PUT("/me", handlers.UpdateProfile)
+				users.PUT("/:id/admin", handlers.SetAdmin)
 			}
+		}
+
+		// Admin routes
+		admin := api.Group("/admin")
+		admin.Use(middleware.Auth())
+		{
+			admin.GET("/users", handlers.AdminGetUsers)
+			admin.DELETE("/users/:id", handlers.AdminDeleteUser)
+			admin.GET("/posts", handlers.AdminGetPosts)
 		}
 
 		// Post routes

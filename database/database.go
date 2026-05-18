@@ -31,6 +31,7 @@ func Connect() {
 
 func Migrate() {
 	queries := []string{
+		`ALTER TABLE users ADD COLUMN IF NOT EXISTS is_admin BOOLEAN DEFAULT FALSE`,
 		// Users tabel
 		`CREATE TABLE IF NOT EXISTS users (
 			id          SERIAL PRIMARY KEY,
@@ -39,6 +40,7 @@ func Migrate() {
 			password    VARCHAR(255) NOT NULL,
 			avatar_url  TEXT DEFAULT '',
 			bio         TEXT DEFAULT '',
+			is_admin    BOOLEAN DEFAULT FALSE,
 			created_at  TIMESTAMP DEFAULT NOW()
 		)`,
 

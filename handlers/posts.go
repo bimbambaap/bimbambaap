@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"database/sql"
 
 	"github.com/cloudinary/cloudinary-go/v2"
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
@@ -143,10 +144,18 @@ func DeletePost(c *gin.Context) {
 		return
 	}
 
-	result, err := database.DB.Exec(
-		`DELETE FROM posts WHERE id = $1 AND user_id = $2`,
-		postID, userID,
-	)
+	var isAdmin bool 
+	var result sql.Result
+	database.DB.QueryRow("SELECT is_admin FROM users WHERE id = $1", userID).Scan(&isAdmin)
+
+	if isAdmin {
+		// Admin mag alles verwijderen
+	    result, err = database.DB.Exec(`DELETE FROM posts WHERE id = $1`, postID)
+	} else {
+		// Normaal — alleen eigen posts
+		result, err = database.DB.Exec(`DELETE FROM posts WHERE id = $1 AND user_id = $2`, postID, userID)
+	}
+
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Kon post niet verwijderen"})
 		return

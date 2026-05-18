@@ -475,6 +475,141 @@ body::before {
   align-items: center; justify-content: center;
 }
 
+/* ── ADMIN SCREEN ── */
+#screen-admin {
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-banner {
+  width: 100%; max-width: 480px;
+  background: linear-gradient(135deg, rgba(255,94,126,0.15), rgba(192,132,252,0.15));
+  border-bottom: 1px solid rgba(255,94,126,0.3);
+  padding: 10px 20px;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--red);
+  text-align: center;
+  font-weight: 700;
+}
+
+.admin-tabs {
+  display: flex; gap: 4px;
+  padding: 16px 16px 0;
+  width: 100%; max-width: 480px;
+}
+.admin-tab {
+  flex: 1; padding: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 0.82rem;
+  color: var(--muted); cursor: pointer;
+  transition: all 0.2s;
+}
+.admin-tab.active {
+  background: rgba(255,94,126,0.15);
+  border-color: rgba(255,94,126,0.4);
+  color: var(--red);
+}
+
+.admin-list {
+  width: 100%; max-width: 480px;
+  padding: 14px 16px 100px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+/* Admin user row */
+.admin-user-row {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  animation: fadeUp 0.25s ease both;
+}
+.admin-user-info { flex: 1; min-width: 0; }
+.admin-user-name {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 0.92rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.admin-user-email {
+  font-size: 0.72rem; color: var(--muted); margin-top: 1px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.admin-badge {
+  font-size: 0.6rem; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 2px 8px;
+  border-radius: 20px; font-weight: 700;
+  background: rgba(255,94,126,0.15);
+  border: 1px solid rgba(255,94,126,0.3);
+  color: var(--red); white-space: nowrap;
+}
+.admin-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.btn-admin-del {
+  padding: 7px 12px;
+  background: rgba(255,94,126,0.12);
+  border: 1px solid rgba(255,94,126,0.25);
+  border-radius: 10px;
+  color: var(--red); font-size: 0.8rem;
+  font-weight: 700; cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.btn-admin-del:active { background: rgba(255,94,126,0.25); }
+.btn-admin-toggle {
+  padding: 7px 12px;
+  background: rgba(192,132,252,0.1);
+  border: 1px solid rgba(192,132,252,0.2);
+  border-radius: 10px;
+  color: var(--purple); font-size: 0.8rem;
+  font-weight: 700; cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.btn-admin-toggle:active { background: rgba(192,132,252,0.22); }
+
+/* Admin post row */
+.admin-post-row {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex; gap: 0;
+  animation: fadeUp 0.25s ease both;
+}
+.admin-post-thumb {
+  width: 80px; height: 80px;
+  object-fit: cover; flex-shrink: 0;
+  background: var(--card2);
+}
+.admin-post-info {
+  flex: 1; padding: 12px 14px;
+  display: flex; flex-direction: column;
+  justify-content: center; gap: 3px; min-width: 0;
+}
+.admin-post-author {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 0.85rem;
+}
+.admin-post-caption {
+  font-size: 0.78rem; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.admin-post-time { font-size: 0.7rem; color: var(--muted); }
+.admin-post-del {
+  padding: 0 16px;
+  background: none; border: none;
+  border-left: 1px solid var(--border);
+  color: var(--red); font-size: 1.2rem;
+  cursor: pointer; flex-shrink: 0;
+  transition: background 0.15s;
+}
+.admin-post-del:active { background: rgba(255,94,126,0.1); }
+
 /* ── ANIMATIONS ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
@@ -593,7 +728,7 @@ body::before {
 
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav" id="bottom-nav">
-  <button class="nav-btn active" id="nav-feed" onclick="showScreen('feed')">
+  <button class="nav-btn" id="nav-feed" onclick="showScreen('feed')">
     🏠<span>Feed</span>
   </button>
   <button class="nav-btn" id="nav-create" onclick="showScreen('create')">
@@ -602,7 +737,28 @@ body::before {
   <button class="nav-btn" id="nav-profile" onclick="showScreen('profile')">
     👤<span>Profiel</span>
   </button>
+  <button class="nav-btn" id="nav-admin" onclick="showScreen('admin')" style="display:none">
+    ⚙<span>Admin</span>
+  </button>
 </nav>
+
+<!-- ADMIN -->
+<div class="screen" id="screen-admin">
+  <nav class="navbar">
+    <div class="nav-logo" style="font-size:1rem">
+      <span style="color:var(--red)">⚙ </span>Admin paneel
+    </div>
+    <button class="btn-icon-round" onclick="showScreen('feed')" style="font-size:0.85rem">✕</button>
+  </nav>
+  <div class="admin-banner">🔒 Alleen zichtbaar voor admins</div>
+  <div class="admin-tabs" id="admin-tabs">
+    <button class="admin-tab active" onclick="switchAdminTab('users')">👥 Accounts</button>
+    <button class="admin-tab" onclick="switchAdminTab('posts')">🖼 Posts</button>
+  </div>
+  <div class="admin-list" id="admin-list">
+    <div class="loading-wrap"><div class="spinner"></div></div>
+  </div>
+</div>
 
 <div id="toast"></div>
 
@@ -619,6 +775,9 @@ let selectedFile = null
 if (token && currentUser) {
   showScreen('feed')
   loadFeed()
+  // Herstel admin knop na page refresh
+  const adminNav = document.getElementById('nav-admin')
+  if (adminNav && currentUser.is_admin) adminNav.style.display = ''
 }
 
 // ── NAVIGATION ──
@@ -636,6 +795,7 @@ function showScreen(name) {
 
   if (name === 'feed') loadFeed()
   if (name === 'profile') loadProfile()
+  if (name === 'admin') { switchAdminTab('users') }
   if (name === 'create') {
     // Reset form
     selectedFile = null
@@ -706,6 +866,9 @@ function saveAuth(data) {
   currentUser = data.user
   localStorage.setItem('token', token)
   localStorage.setItem('user', JSON.stringify(currentUser))
+  // Laat admin knop zien als gebruiker admin is
+  const adminNav = document.getElementById('nav-admin')
+  if (adminNav) adminNav.style.display = currentUser.is_admin ? '' : 'none'
 }
 
 function doLogout() {
@@ -741,11 +904,13 @@ function renderFeed(posts) {
 }
 
 function postCardHTML(p) {
-  const author   = p.author || {}
-  const letter   = (author.username || '?')[0].toUpperCase()
-  const isOwn    = currentUser && p.user_id === currentUser.id
-  const time     = timeAgo(p.created_at)
-  const imgHTML  = p.image_url
+  const author  = p.author || {}
+  const letter  = (author.username || '?')[0].toUpperCase()
+  const isOwn   = currentUser && p.user_id === currentUser.id
+  const isAdmin = currentUser && currentUser.is_admin
+  const canDel  = isOwn || isAdmin
+  const time    = timeAgo(p.created_at)
+  const imgHTML = p.image_url
     ? `<img class="post-image" src="${esc(p.image_url)}" loading="lazy">`
     : `<div class="post-image-placeholder">🖼️</div>`
 
@@ -758,7 +923,7 @@ function postCardHTML(p) {
     ${imgHTML}
     <div class="post-body">
       ${p.caption ? `<div class="post-caption">${esc(p.caption)}</div>` : ''}
-      ${isOwn ? `<button class="post-delete" onclick="deletePost(${p.id}, this)">Verwijderen</button>` : ''}
+      ${canDel ? `<button class="post-delete" onclick="deletePost(${p.id}, this)">${isAdmin && !isOwn ? '🔒 Verwijderen (admin)' : 'Verwijderen'}</button>` : ''}
     </div>
   </div>`
 }
@@ -841,6 +1006,128 @@ async function loadProfile() {
     ).join('')
   } catch(e) {
     postsEl.innerHTML = `<div class="feed-empty" style="grid-column:span 3">${e.message}</div>`
+  }
+}
+
+// ── ADMIN ──
+let adminTab = 'users'
+
+function switchAdminTab(tab) {
+  adminTab = tab
+  document.querySelectorAll('.admin-tab').forEach((b, i) => {
+    b.classList.toggle('active', (i === 0 && tab === 'users') || (i === 1 && tab === 'posts'))
+  })
+  if (tab === 'users') loadAdminUsers()
+  else loadAdminPosts()
+}
+
+async function loadAdminUsers() {
+  const list = document.getElementById('admin-list')
+  list.innerHTML = '<div class="loading-wrap"><div class="spinner"></div></div>'
+  try {
+    const data = await apiFetch('/admin/users')
+    const users = data.users || []
+    if (!users.length) {
+      list.innerHTML = '<div class="feed-empty"><div class="feed-empty-icon">👥</div>Geen accounts gevonden</div>'
+      return
+    }
+    list.innerHTML = users.map(u => `
+      <div class="admin-user-row" id="user-row-${u.id}">
+        <div class="post-avatar" style="background:linear-gradient(135deg,var(--purple),var(--blue));flex-shrink:0">
+          ${(u.username||'?')[0].toUpperCase()}
+        </div>
+        <div class="admin-user-info">
+          <div class="admin-user-name">${esc(u.username)}</div>
+          <div class="admin-user-email">${esc(u.email)}</div>
+        </div>
+        ${u.is_admin ? '<div class="admin-badge">admin</div>' : ''}
+        <div class="admin-actions">
+          ${u.id !== currentUser.id ? `
+            <button class="btn-admin-toggle" onclick="toggleAdmin(${u.id}, this)">
+              ${u.is_admin ? 'Admin af' : 'Admin'}
+            </button>
+            <button class="btn-admin-del" onclick="deleteUser(${u.id})">✕</button>
+          ` : '<span style="font-size:0.7rem;color:var(--muted)">jij</span>'}
+        </div>
+      </div>
+    `).join('')
+  } catch(e) {
+    list.innerHTML = `<div class="feed-empty">${e.message}</div>`
+  }
+}
+
+async function loadAdminPosts() {
+  const list = document.getElementById('admin-list')
+  list.innerHTML = '<div class="loading-wrap"><div class="spinner"></div></div>'
+  try {
+    const data = await apiFetch('/admin/posts')
+    const posts = data.posts || []
+    if (!posts.length) {
+      list.innerHTML = '<div class="feed-empty"><div class="feed-empty-icon">🖼</div>Geen posts gevonden</div>'
+      return
+    }
+    list.innerHTML = posts.map(p => `
+      <div class="admin-post-row" id="admin-post-${p.id}">
+        ${p.image_url
+          ? `<img class="admin-post-thumb" src="${esc(p.image_url)}" loading="lazy">`
+          : `<div class="admin-post-thumb" style="display:flex;align-items:center;justify-content:center;color:var(--muted)">🖼</div>`
+        }
+        <div class="admin-post-info">
+          <div class="admin-post-author">${esc((p.author && p.author.username) || '—')}</div>
+          <div class="admin-post-caption">${p.caption ? esc(p.caption) : '(geen onderschrift)'}</div>
+          <div class="admin-post-time">${timeAgo(p.created_at)}</div>
+        </div>
+        <button class="admin-post-del" onclick="adminDeletePost(${p.id})">🗑</button>
+      </div>
+    `).join('')
+  } catch(e) {
+    list.innerHTML = `<div class="feed-empty">${e.message}</div>`
+  }
+}
+
+async function toggleAdmin(userId, btn) {
+  try {
+    const data = await apiFetch(`/users/${userId}/admin`, { method: 'PUT' })
+    // Update knop tekst en badge
+    const row = document.getElementById(`user-row-${userId}`)
+    if (data.is_admin) {
+      btn.textContent = 'Admin af'
+      if (!row.querySelector('.admin-badge')) {
+        const badge = document.createElement('div')
+        badge.className = 'admin-badge'
+        badge.textContent = 'admin'
+        row.insertBefore(badge, row.querySelector('.admin-actions'))
+      }
+    } else {
+      btn.textContent = 'Admin'
+      const badge = row.querySelector('.admin-badge')
+      if (badge) badge.remove()
+    }
+    toast(data.is_admin ? 'Admin toegevoegd' : 'Admin verwijderd')
+  } catch(e) {
+    toast(e.message)
+  }
+}
+
+async function deleteUser(userId) {
+  if (!confirm('Account verwijderen? Dit verwijdert ook alle posts van deze gebruiker.')) return
+  try {
+    await apiFetch(`/admin/users/${userId}`, { method: 'DELETE' })
+    document.getElementById(`user-row-${userId}`)?.remove()
+    toast('Account verwijderd')
+  } catch(e) {
+    toast(e.message)
+  }
+}
+
+async function adminDeletePost(postId) {
+  if (!confirm('Post verwijderen?')) return
+  try {
+    await apiFetch(`/posts/${postId}`, { method: 'DELETE' })
+    document.getElementById(`admin-post-${postId}`)?.remove()
+    toast('Post verwijderd')
+  } catch(e) {
+    toast(e.message)
   }
 }
 
