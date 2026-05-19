@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<!-- v8 -->
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="icon" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<title>Bim Bam Baap</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#0c0c14">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+  --bg: #0c0c14;
+  --card: #13131f;
+  --border: rgba(255,255,255,0.08);
+  --green: #4fffb0;
+  --yellow: #ffdf5e;
+  --pink: #ff6eb4;
+  --purple: #c084fc;
+  --blue: #60c3ff;
+  --text: #f4f0ff;
+  --muted: rgba(244,240,255,0.38);
+}
+
+body {
+  padding-top: env(safe-area-inset-top);
+}
+
+html {
+  height: 100%;
+  height: 100dvh;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 0%, rgba(192,132,252,0.13) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 100%, rgba(96,195,255,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(79,255,176,0.05) 0%, transparent 60%);
+  background-attachment: fixed;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  background: var(--bg);
+  overflow: hidden;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 0%, rgba(192,132,252,0.13) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 100%, rgba(96,195,255,0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(79,255,176,0.05) 0%, transparent 60%); 
+  pointer-events: none;
+  /* background-attachment: fixed; /* zorgt dat gradient niet herhaalt */
+  min-height: 100vh;
+  min-height: 100dvh; /* dynamic viewport height, belangrijk op iOS */
+  padding-bottom: env(safe-area-inset-bottom); */
+  z-index: 0;
+}
+
+.wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 10vw, 2.8rem);
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 4px;
+  line-height: 1;
+  animation: fadeIn 0.4s ease both;
+}
+.logo-b { color: var(--green); }
+.logo-a { color: var(--yellow); }
+.logo-p { color: var(--pink); }
+
+.tagline {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 22px;
+  animation: fadeIn 0.4s 0.08s ease both;
+}
+
+.card {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 26px 22px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  animation: fadeIn 0.4s 0.14s ease both;
+  overflow: visible;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--green), var(--yellow), var(--pink), transparent);
+  opacity: 0.7;
+}
+
+/* LETTER SECTION */
+.letter-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow: visible;
+  /* animate height via max-height trick */
+  max-height: 200px;
+  opacity: 1;
+  margin-bottom: 20px;
+  transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1),
+              opacity 0.35s ease,
+              margin-bottom 0.5s cubic-bezier(0.4,0,0.2,1),
+              transform 0.4s ease,
+              padding 0.5s ease;
+}
+
+.letter-section.hidden-section {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  margin-bottom: 0 !important;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.letter-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.letter-bubble {
+  width: 84px;
+  height: 84px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--green), #00d988);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 3.4rem;
+  color: #061a10;
+  box-shadow: 0 0 40px rgba(79,255,176,0.35), 0 8px 24px rgba(79,255,176,0.2);
+  position: relative;
+  animation: letterPop 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
+  /* prevent bubble from shrinking during collapse */
+  flex-shrink: 0;
+}
+
+.letter-bubble::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 27px;
+  border: 2px solid rgba(79,255,176,0.4);
+  box-shadow: 0 0 12px rgba(79,255,176,0.2);
+}
+
+/* Divider wraps together with letter so they collapse as one */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 20px;
+  overflow: hidden;
+  max-height: 1px;
+  opacity: 1;
+  transition: opacity 0.35s ease,
+              max-height 0.5s cubic-bezier(0.4,0,0.2,1),
+              margin-bottom 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+
+.divider.hidden-section {
+  max-height: 0 !important;
+  opacity: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.cat-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  align-self: flex-start;
+}
+
+.category-text {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.6rem, 8vw, 2.3rem);
+  color: var(--yellow);
+  text-shadow: 0 0 28px rgba(255,223,94,0.35);
+  line-height: 1.15;
+  width: 100%;
+  word-break: break-word;
+  min-height: 2.6rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 22px;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  z-index: 9999;
+}
+
+.cat-counter {
+  display: none;
+}
+
+.btn-next {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #4fffb0 0%, #00d98a 100%);
+  border: none;
+  border-radius: 16px;
+  color: #061a10;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  box-shadow: 0 6px 28px rgba(79,255,176,0.28), 0 2px 0 rgba(0,0,0,0.12) inset;
+  transition: transform 0.12s, box-shadow 0.12s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-next::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent 60%);
+}
+
+.btn-next:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 12px rgba(79,255,176,0.18);
+}
+
+/* Tap ripple */
+.ripple {
+  position: fixed;
+  border-radius: 50%;
+  width: 60px; height: 60px;
+  margin-left: -30px; margin-top: -30px;
+  background: rgba(79,255,176,0.18);
+  pointer-events: none;
+  transform: scale(0);
+  animation: rippleAnim 0.5s ease-out forwards;
+  z-index: 99999;
+}
+@keyframes rippleAnim {
+  to { transform: scale(6); opacity: 0; }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(8px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+@keyframes letterPop {
+  0%   { transform: scale(0.4) rotate(-10deg); opacity:0; }
+  60%  { transform: scale(1.13) rotate(4deg); }
+  80%  { transform: scale(0.95); }
+  100% { transform: scale(1) rotate(0deg); opacity:1; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="logo">
+    <span class="logo-b">BIM </span><span class="logo-a">BAM </span><span class="logo-p">BAAP</span>
+  </div>
+  <div class="tagline">Het jonkospel</div>
+
+  <div class="card">
+    <div class="letter-section" id="letter-section">
+      <div class="letter-label">Begin met de letter</div>
+      <div class="letter-bubble" id="letter-bubble">A</div>
+    </div>
+
+    <div class="divider" id="divider"></div>
+
+    <div class="cat-label">CATEGORIE</div>
+    <div class="category-text" id="category-text">—</div>
+    <div class="cat-counter" id="cat-counter">Beurt 1</div>
+
+    <button class="btn-next" id="btn-next">
+      <span>⟳</span>
+      <span>Volgende categorie</span>
+    </button>
+  </div>
+</div>
+
+<script>
+const xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://bimbambaap.github.io/categorieen.txt', false); // false = synchroon
+xhr.send();
+
+if (xhr.status !== 200) {
+  throw new Error(`Fout bij ophalen: ${xhr.status}`);
+}
+
+var CATEGORIES = xhr.responseText
+    .split('\n')
+    .map(word => word.trim())
+    .filter(word => word.length > 0);
+var LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+var usedCats = JSON.parse(localStorage.getItem('usedCats')) || [];
+var letterHidden = false;
+var busy = false;
+
+function randCategory() {
+  while (usedCats.length >= 20) usedCats.shift();
+  var available = CATEGORIES.filter(function(c) { return usedCats.indexOf(c) === -1; });
+  var pick = available[Math.floor(Math.random() * available.length)];
+  usedCats.push(pick);
+  localStorage.setItem('usedCats', JSON.stringify(usedCats));
+  return pick;
+}
+
+function spawnRipple(x, y) {
+  var r = document.createElement('div');
+  r.className = 'ripple';
+  r.style.left = x + 'px';
+  r.style.top = y + 'px';
+  document.body.appendChild(r);
+  setTimeout(function() { r.remove(); }, 550);
+}
+
+function next(x, y) {
+  if (busy) return;
+  busy = true;
+
+  if (x !== undefined) spawnRipple(x, y);
+
+  if (!letterHidden) {
+    letterHidden = true;
+    document.getElementById('letter-section').classList.add('hidden-section');
+    document.getElementById('divider').classList.add('hidden-section');
+  }
+
+  var catEl = document.getElementById('category-text');
+  catEl.style.opacity = '0';
+  catEl.style.transform = 'translateX(-12px)';
+
+  setTimeout(function() {
+    catEl.textContent = randCategory();
+    catEl.style.opacity = '1';
+    catEl.style.transform = 'translateX(0)';
+    busy = false;
+  }, 130);
+}
+
+// Init
+document.getElementById('letter-bubble').textContent =
+  LETTERS[Math.floor(Math.random() * LETTERS.length)];
+document.getElementById('category-text').textContent = randCategory();
+
+// Full screen tap
+document.addEventListener('click', function(e) {
+  next(e.clientX, e.clientY);
+});
+
+// Touch support (prevent double-fire with click)
+document.addEventListener('touchend', function(e) {
+  e.preventDefault();
+  var t = e.changedTouches[0];
+  next(t.clientX, t.clientY);
+}, { passive: false });
+</script>
+
+</body>
+</html>

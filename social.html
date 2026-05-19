@@ -2,13 +2,8 @@
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<link rel="icon" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Bim Bam Baap</title>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#0c0c14">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
 
@@ -29,25 +24,12 @@
   --muted:  rgba(244,240,255,0.38);
 }
 
-html {
-  height: 100%;
-  height: 100dvh;
-}
-
 html, body {
-  width: 100%;
+  width: 100%; height: 100%;
   background: var(--bg);
   font-family: 'DM Sans', sans-serif;
   color: var(--text);
   -webkit-tap-highlight-color: transparent;
-}
-
-body {
-  height: 100%;
-  height: 100dvh;
-  overflow: hidden;
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
 }
 
 body::before {
@@ -64,12 +46,8 @@ body::before {
 .screen {
   display: none;
   position: relative; z-index: 1;
+  min-height: 100dvh;
   width: 100%;
-  height: 100%;
-  height: 100dvh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
 }
 .screen.active { display: flex; }
 
@@ -115,6 +93,7 @@ body::before {
   box-shadow: 0 30px 80px rgba(0,0,0,0.5);
   animation: fadeUp 0.4s 0.12s ease both;
 }
+
 .auth-card::before {
   content: '';
   position: absolute; top: 0; left: 10%; right: 10%;
@@ -138,7 +117,10 @@ body::before {
   color: var(--muted); cursor: pointer;
   transition: all 0.2s;
 }
-.auth-tab.active { background: var(--green); color: #061a10; }
+.auth-tab.active {
+  background: var(--green);
+  color: #061a10;
+}
 
 .form-group { margin-bottom: 14px; }
 .form-label {
@@ -192,8 +174,12 @@ body::before {
 }
 
 /* ── FEED SCREEN ── */
-#screen-feed { flex-direction: column; align-items: center; }
+#screen-feed {
+  flex-direction: column;
+  align-items: center;
+}
 
+/* Nav bar */
 .navbar {
   width: 100%; max-width: 480px;
   display: flex; align-items: center;
@@ -203,9 +189,11 @@ body::before {
   background: rgba(12,12,20,0.85);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
 }
-.nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; }
+.nav-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 1.2rem;
+}
 .nav-actions { display: flex; gap: 10px; align-items: center; }
 
 .btn-icon-round {
@@ -226,6 +214,7 @@ body::before {
   display: flex; flex-direction: column; gap: 16px;
 }
 
+/* Post card */
 .post-card {
   background: var(--card);
   border: 1px solid var(--border);
@@ -247,239 +236,53 @@ body::before {
   font-weight: 800; font-size: 0.9rem;
   color: #fff; flex-shrink: 0;
 }
-.post-username { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; }
-.post-time { font-size: 0.72rem; color: var(--muted); margin-left: auto; }
+.post-username {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 0.9rem;
+}
+.post-time {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-left: auto;
+}
 .post-image {
-  width: 100%; aspect-ratio: 1;
-  object-fit: cover; display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
   background: var(--card2);
 }
 .post-image-placeholder {
-  width: 100%; aspect-ratio: 1;
+  width: 100%;
+  aspect-ratio: 1;
   background: var(--card2);
   display: flex; align-items: center; justify-content: center;
   color: var(--muted); font-size: 2rem;
 }
 .post-body { padding: 12px 16px 16px; }
-.post-caption { font-size: 0.9rem; line-height: 1.5; color: var(--text); }
+.post-caption {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text);
+}
 .post-delete {
   background: none; border: none;
   color: var(--red); font-size: 0.75rem;
   cursor: pointer; margin-top: 8px;
-  padding: 0; opacity: 0.6; transition: opacity 0.15s;
+  padding: 0; opacity: 0.6;
+  transition: opacity 0.15s;
 }
 .post-delete:active { opacity: 1; }
 
 .feed-empty {
-  text-align: center; color: var(--muted);
-  padding: 60px 20px; font-size: 0.9rem;
+  text-align: center;
+  color: var(--muted);
+  padding: 60px 20px;
+  font-size: 0.9rem;
 }
 .feed-empty-icon { font-size: 3rem; margin-bottom: 12px; }
 
-/* ── GAME SCREEN (was create) ── */
-#screen-game {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  touch-action: manipulation;
-  cursor: pointer;
-  padding-bottom: 60px; /* ruimte voor bottom nav */
-}
-
-/* Game wrapper */
-.game-wrapper {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 400px;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  pointer-events: none; /* laat klik doorgaan naar body */
-}
-
-.game-logo {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: clamp(2rem, 10vw, 2.8rem);
-  letter-spacing: -0.01em;
-  text-align: center;
-  margin-bottom: 4px;
-  line-height: 1;
-  animation: fadeIn 0.4s ease both;
-}
-
-.game-tagline {
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 22px;
-  animation: fadeIn 0.4s 0.08s ease both;
-}
-
-.game-card {
-  width: 100%;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  padding: 26px 22px 28px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  overflow: visible;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
-  animation: fadeIn 0.4s 0.14s ease both;
-}
-.game-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 10%; right: 10%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--green), var(--yellow), var(--pink), transparent);
-  opacity: 0.7;
-}
-
-/* LETTER SECTION */
-.letter-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  overflow: visible;
-  max-height: 200px;
-  opacity: 1;
-  margin-bottom: 20px;
-  transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1),
-              opacity 0.35s ease,
-              margin-bottom 0.5s cubic-bezier(0.4,0,0.2,1),
-              transform 0.4s ease,
-              padding 0.5s ease;
-}
-.letter-section.hidden-section {
-  max-height: 0 !important;
-  opacity: 0 !important;
-  margin-bottom: 0 !important;
-  transform: scaleY(0);
-  transform-origin: top;
-}
-
-.letter-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-
-.letter-bubble {
-  width: 84px; height: 84px;
-  border-radius: 22px;
-  background: linear-gradient(135deg, var(--green), #00d988);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800; font-size: 3.4rem;
-  color: #061a10;
-  box-shadow: 0 0 40px rgba(79,255,176,0.35), 0 8px 24px rgba(79,255,176,0.2);
-  position: relative;
-  animation: letterPop 0.55s cubic-bezier(0.34,1.56,0.64,1) both;
-  flex-shrink: 0;
-}
-.letter-bubble::after {
-  content: '';
-  position: absolute;
-  inset: -5px;
-  border-radius: 27px;
-  border: 2px solid rgba(79,255,176,0.4);
-  box-shadow: 0 0 12px rgba(79,255,176,0.2);
-}
-
-.game-divider {
-  width: 100%;
-  height: 1px;
-  background: var(--border);
-  margin-bottom: 20px;
-  overflow: hidden;
-  max-height: 1px;
-  opacity: 1;
-  transition: opacity 0.35s ease,
-              max-height 0.5s cubic-bezier(0.4,0,0.2,1),
-              margin-bottom 0.5s cubic-bezier(0.4,0,0.2,1);
-}
-.game-divider.hidden-section {
-  max-height: 0 !important;
-  opacity: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.cat-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 10px;
-  align-self: flex-start;
-}
-
-.category-text {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.6rem, 8vw, 2.3rem);
-  color: var(--yellow);
-  text-shadow: 0 0 28px rgba(255,223,94,0.35);
-  line-height: 1.15;
-  width: 100%;
-  word-break: break-word;
-  min-height: 2.6rem;
-  display: flex;
-  align-items: center;
-  margin-bottom: 22px;
-  transition: opacity 0.18s ease, transform 0.18s ease;
-}
-
-.btn-next {
-  width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, #4fffb0 0%, #00d98a 100%);
-  border: none;
-  border-radius: 16px;
-  color: #061a10;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800; font-size: 1rem;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-  box-shadow: 0 6px 28px rgba(79,255,176,0.28), 0 2px 0 rgba(0,0,0,0.12) inset;
-  transition: transform 0.12s, box-shadow 0.12s;
-  display: flex; align-items: center; justify-content: center;
-  gap: 9px;
-  position: relative; overflow: hidden;
-  pointer-events: auto;
-}
-.btn-next::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.18), transparent 60%);
-}
-.btn-next:active { transform: scale(0.95); box-shadow: 0 2px 12px rgba(79,255,176,0.18); }
-
-/* Ripple */
-.ripple {
-  position: fixed;
-  border-radius: 50%;
-  width: 60px; height: 60px;
-  margin-left: -30px; margin-top: -30px;
-  background: rgba(79,255,176,0.18);
-  pointer-events: none;
-  transform: scale(0);
-  animation: rippleAnim 0.5s ease-out forwards;
-  z-index: 99999;
-}
-@keyframes rippleAnim { to { transform: scale(6); opacity: 0; } }
-
-/* ── POST CREATION SCREEN (nieuw post scherm) ── */
+/* ── CREATE POST SCREEN ── */
 #screen-create {
   flex-direction: column;
   align-items: center;
@@ -494,13 +297,16 @@ body::before {
   background: rgba(12,12,20,0.85);
   backdrop-filter: blur(12px);
   position: sticky; top: 0; z-index: 10;
-  flex-shrink: 0;
 }
-.screen-header h2 { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; }
+.screen-header h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 1.1rem;
+}
 .btn-back {
   background: none; border: none;
   color: var(--muted); font-size: 1.3rem;
-  cursor: pointer; line-height: 1; padding: 4px;
+  cursor: pointer; line-height: 1;
+  padding: 4px;
 }
 
 .create-body {
@@ -509,8 +315,10 @@ body::before {
   display: flex; flex-direction: column; gap: 16px;
 }
 
+/* Image drop zone */
 .image-zone {
-  width: 100%; aspect-ratio: 1;
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: 20px;
   border: 2px dashed rgba(255,255,255,0.15);
   display: flex; flex-direction: column;
@@ -540,19 +348,22 @@ body::before {
   color: var(--muted);
   font-family: 'Syne', sans-serif;
   font-weight: 700; font-size: 0.95rem;
-  cursor: pointer; transition: background 0.15s;
+  cursor: pointer;
+  transition: background 0.15s;
 }
 .btn-secondary:active { background: rgba(255,255,255,0.1); }
 
-/* ── PROFILE ── */
-#screen-profile { flex-direction: column; align-items: center; }
+/* ── PROFILE SCREEN ── */
+#screen-profile {
+  flex-direction: column;
+  align-items: center;
+}
 
 .profile-header {
   width: 100%; max-width: 480px;
   padding: 28px 20px 20px;
   display: flex; flex-direction: column;
   align-items: center; gap: 10px;
-  flex-shrink: 0;
 }
 .profile-avatar-big {
   width: 80px; height: 80px;
@@ -563,11 +374,23 @@ body::before {
   font-weight: 800; font-size: 2rem; color: #fff;
   box-shadow: 0 0 30px rgba(192,132,252,0.3);
 }
-.profile-username-big { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; }
-.profile-bio { font-size: 0.88rem; color: var(--muted); text-align: center; }
-.profile-stats { display: flex; gap: 24px; margin-top: 4px; }
+.profile-username-big {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 1.4rem;
+}
+.profile-bio {
+  font-size: 0.88rem; color: var(--muted);
+  text-align: center;
+}
+.profile-stats {
+  display: flex; gap: 24px; margin-top: 4px;
+}
 .stat { text-align: center; }
-.stat-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: var(--green); }
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800; font-size: 1.2rem;
+  color: var(--green);
+}
 .stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 1px; }
 
 .profile-posts {
@@ -576,13 +399,18 @@ body::before {
   gap: 3px; padding: 0 0 80px;
 }
 .profile-thumb {
-  aspect-ratio: 1; object-fit: cover;
-  width: 100%; background: var(--card2);
-  display: block; cursor: pointer; transition: opacity 0.15s;
+  aspect-ratio: 1;
+  object-fit: cover;
+  width: 100%;
+  background: var(--card2);
+  display: block;
+  cursor: pointer;
+  transition: opacity 0.15s;
 }
 .profile-thumb:active { opacity: 0.7; }
 .profile-thumb-placeholder {
-  aspect-ratio: 1; background: var(--card2);
+  aspect-ratio: 1;
+  background: var(--card2);
   display: flex; align-items: center; justify-content: center;
   color: var(--muted); font-size: 1.5rem;
 }
@@ -592,8 +420,7 @@ body::before {
   position: fixed; bottom: 0; left: 0; right: 0;
   display: none;
   align-items: center; justify-content: space-around;
-  padding: 10px 0;
-  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  padding: 10px 0 20px;
   background: rgba(12,12,20,0.92);
   backdrop-filter: blur(16px);
   border-top: 1px solid var(--border);
@@ -610,7 +437,11 @@ body::before {
   font-size: 1.4rem;
 }
 .nav-btn.active { color: var(--green); }
-.nav-btn span { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; }
+.nav-btn span {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 
 /* ── TOAST ── */
 #toast {
@@ -638,26 +469,35 @@ body::before {
   margin: 0 auto;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
-.loading-wrap { padding: 40px; display: flex; align-items: center; justify-content: center; }
 
-/* ── ADMIN ── */
-#screen-admin { flex-direction: column; align-items: center; }
+.loading-wrap {
+  padding: 40px; display: flex;
+  align-items: center; justify-content: center;
+}
+
+/* ── ADMIN SCREEN ── */
+#screen-admin {
+  flex-direction: column;
+  align-items: center;
+}
 
 .admin-banner {
   width: 100%; max-width: 480px;
   background: linear-gradient(135deg, rgba(255,94,126,0.15), rgba(192,132,252,0.15));
   border-bottom: 1px solid rgba(255,94,126,0.3);
   padding: 10px 20px;
-  font-size: 0.72rem; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--red);
-  text-align: center; font-weight: 700;
-  flex-shrink: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--red);
+  text-align: center;
+  font-weight: 700;
 }
+
 .admin-tabs {
   display: flex; gap: 4px;
   padding: 16px 16px 0;
   width: 100%; max-width: 480px;
-  flex-shrink: 0;
 }
 .admin-tab {
   flex: 1; padding: 10px;
@@ -666,27 +506,34 @@ body::before {
   border-radius: 12px;
   font-family: 'Syne', sans-serif;
   font-weight: 700; font-size: 0.82rem;
-  color: var(--muted); cursor: pointer; transition: all 0.2s;
+  color: var(--muted); cursor: pointer;
+  transition: all 0.2s;
 }
 .admin-tab.active {
   background: rgba(255,94,126,0.15);
   border-color: rgba(255,94,126,0.4);
   color: var(--red);
 }
+
 .admin-list {
   width: 100%; max-width: 480px;
   padding: 14px 16px 100px;
   display: flex; flex-direction: column; gap: 10px;
 }
+
+/* Admin user row */
 .admin-user-row {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 16px; padding: 14px 16px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 16px;
   display: flex; align-items: center; gap: 12px;
   animation: fadeUp 0.25s ease both;
 }
 .admin-user-info { flex: 1; min-width: 0; }
 .admin-user-name {
-  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.92rem;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 0.92rem;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .admin-user-email {
@@ -694,44 +541,72 @@ body::before {
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .admin-badge {
-  font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
-  padding: 2px 8px; border-radius: 20px; font-weight: 700;
-  background: rgba(255,94,126,0.15); border: 1px solid rgba(255,94,126,0.3);
+  font-size: 0.6rem; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 2px 8px;
+  border-radius: 20px; font-weight: 700;
+  background: rgba(255,94,126,0.15);
+  border: 1px solid rgba(255,94,126,0.3);
   color: var(--red); white-space: nowrap;
 }
 .admin-actions { display: flex; gap: 6px; flex-shrink: 0; }
 .btn-admin-del {
   padding: 7px 12px;
-  background: rgba(255,94,126,0.12); border: 1px solid rgba(255,94,126,0.25);
-  border-radius: 10px; color: var(--red); font-size: 0.8rem;
-  font-weight: 700; cursor: pointer; transition: background 0.15s; white-space: nowrap;
+  background: rgba(255,94,126,0.12);
+  border: 1px solid rgba(255,94,126,0.25);
+  border-radius: 10px;
+  color: var(--red); font-size: 0.8rem;
+  font-weight: 700; cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
 }
 .btn-admin-del:active { background: rgba(255,94,126,0.25); }
 .btn-admin-toggle {
   padding: 7px 12px;
-  background: rgba(192,132,252,0.1); border: 1px solid rgba(192,132,252,0.2);
-  border-radius: 10px; color: var(--purple); font-size: 0.8rem;
-  font-weight: 700; cursor: pointer; transition: background 0.15s; white-space: nowrap;
+  background: rgba(192,132,252,0.1);
+  border: 1px solid rgba(192,132,252,0.2);
+  border-radius: 10px;
+  color: var(--purple); font-size: 0.8rem;
+  font-weight: 700; cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
 }
 .btn-admin-toggle:active { background: rgba(192,132,252,0.22); }
+
+/* Admin post row */
 .admin-post-row {
-  background: var(--card); border: 1px solid var(--border);
-  border-radius: 16px; overflow: hidden;
-  display: flex; gap: 0; animation: fadeUp 0.25s ease both;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex; gap: 0;
+  animation: fadeUp 0.25s ease both;
 }
-.admin-post-thumb { width: 80px; height: 80px; object-fit: cover; flex-shrink: 0; background: var(--card2); }
+.admin-post-thumb {
+  width: 80px; height: 80px;
+  object-fit: cover; flex-shrink: 0;
+  background: var(--card2);
+}
 .admin-post-info {
   flex: 1; padding: 12px 14px;
   display: flex; flex-direction: column;
   justify-content: center; gap: 3px; min-width: 0;
 }
-.admin-post-author { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; }
-.admin-post-caption { font-size: 0.78rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.admin-post-author {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700; font-size: 0.85rem;
+}
+.admin-post-caption {
+  font-size: 0.78rem; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
 .admin-post-time { font-size: 0.7rem; color: var(--muted); }
 .admin-post-del {
-  padding: 0 16px; background: none; border: none;
-  border-left: 1px solid var(--border); color: var(--red);
-  font-size: 1.2rem; cursor: pointer; flex-shrink: 0; transition: background 0.15s;
+  padding: 0 16px;
+  background: none; border: none;
+  border-left: 1px solid var(--border);
+  color: var(--red); font-size: 1.2rem;
+  cursor: pointer; flex-shrink: 0;
+  transition: background 0.15s;
 }
 .admin-post-del:active { background: rgba(255,94,126,0.1); }
 
@@ -739,16 +614,6 @@ body::before {
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeIn {
-  from { opacity:0; transform: translateY(8px); }
-  to   { opacity:1; transform: translateY(0); }
-}
-@keyframes letterPop {
-  0%   { transform: scale(0.4) rotate(-10deg); opacity:0; }
-  60%  { transform: scale(1.13) rotate(4deg); }
-  80%  { transform: scale(0.95); }
-  100% { transform: scale(1) rotate(0deg); opacity:1; }
 }
 </style>
 </head>
@@ -760,11 +625,14 @@ body::before {
     <span class="logo-b">BIM </span><span class="logo-a">BAM </span><span class="logo-p">BAAP</span>
   </div>
   <div class="tagline">Het gezelschapsspel</div>
+
   <div class="auth-card">
     <div class="auth-tabs">
       <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Inloggen</button>
       <button class="auth-tab" id="tab-register" onclick="switchTab('register')">Registreren</button>
     </div>
+
+    <!-- Login form -->
     <div id="form-login">
       <div class="form-group">
         <label class="form-label">Email</label>
@@ -776,6 +644,8 @@ body::before {
       </div>
       <button class="btn-primary" id="btn-login" onclick="doLogin()">Inloggen</button>
     </div>
+
+    <!-- Register form -->
     <div id="form-register" style="display:none">
       <div class="form-group">
         <label class="form-label">Gebruikersnaam</label>
@@ -791,6 +661,7 @@ body::before {
       </div>
       <button class="btn-primary" id="btn-register" onclick="doRegister()">Account aanmaken</button>
     </div>
+
     <div class="auth-error" id="auth-error"></div>
   </div>
 </div>
@@ -807,29 +678,6 @@ body::before {
   </nav>
   <div class="feed-wrap" id="feed-wrap">
     <div class="loading-wrap"><div class="spinner"></div></div>
-  </div>
-</div>
-
-<!-- GAME (vervangt post knop) -->
-<div class="screen" id="screen-game">
-  <div class="game-wrapper">
-    <div class="game-logo">
-      <span class="logo-b">BIM </span><span class="logo-a">BAM </span><span class="logo-p">BAAP</span>
-    </div>
-    <div class="game-tagline">Het jonkospel</div>
-    <div class="game-card">
-      <div class="letter-section" id="letter-section">
-        <div class="letter-label">Begin met de letter</div>
-        <div class="letter-bubble" id="letter-bubble">A</div>
-      </div>
-      <div class="game-divider" id="game-divider"></div>
-      <div class="cat-label">CATEGORIE</div>
-      <div class="category-text" id="category-text">—</div>
-      <button class="btn-next" id="btn-next">
-        <span>⟳</span>
-        <span>Volgende categorie</span>
-      </button>
-    </div>
   </div>
 </div>
 
@@ -883,8 +731,8 @@ body::before {
   <button class="nav-btn" id="nav-feed" onclick="showScreen('feed')">
     🏠<span>Feed</span>
   </button>
-  <button class="nav-btn" id="nav-game" onclick="showScreen('game')">
-    🎮<span>Spel</span>
+  <button class="nav-btn" id="nav-create" onclick="showScreen('create')">
+    ➕<span>Post</span>
   </button>
   <button class="nav-btn" id="nav-profile" onclick="showScreen('profile')">
     👤<span>Profiel</span>
@@ -915,7 +763,7 @@ body::before {
 <div id="toast"></div>
 
 <script>
-// ── CONFIG ──
+// ── CONFIG ── verander dit naar jouw Railway URL
 const API = 'http://localhost:8080/api/v1'
 
 // ── STATE ──
@@ -927,6 +775,7 @@ let selectedFile = null
 if (token && currentUser) {
   showScreen('feed')
   loadFeed()
+  // Herstel admin knop na page refresh
   const adminNav = document.getElementById('nav-admin')
   if (adminNav && currentUser.is_admin) adminNav.style.display = ''
 }
@@ -944,11 +793,11 @@ function showScreen(name) {
   const active = document.getElementById('nav-' + name)
   if (active) active.classList.add('active')
 
-  if (name === 'feed')    loadFeed()
+  if (name === 'feed') loadFeed()
   if (name === 'profile') loadProfile()
-  if (name === 'admin')   switchAdminTab('users')
-  if (name === 'game')    initGame()
+  if (name === 'admin') { switchAdminTab('users') }
   if (name === 'create') {
+    // Reset form
     selectedFile = null
     document.getElementById('post-caption').value = ''
     document.getElementById('image-input').value = ''
@@ -973,9 +822,13 @@ async function doLogin() {
   const email    = document.getElementById('login-email').value.trim()
   const password = document.getElementById('login-password').value
   if (!email || !password) { setAuthError('Vul alle velden in'); return }
+
   setLoading('btn-login', true)
   try {
-    const data = await apiFetch('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) })
+    const data = await apiFetch('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password })
+    })
     saveAuth(data)
     showScreen('feed')
     loadFeed()
@@ -991,9 +844,13 @@ async function doRegister() {
   const email    = document.getElementById('reg-email').value.trim()
   const password = document.getElementById('reg-password').value
   if (!username || !email || !password) { setAuthError('Vul alle velden in'); return }
+
   setLoading('btn-register', true)
   try {
-    const data = await apiFetch('/auth/register', { method: 'POST', body: JSON.stringify({ username, email, password }) })
+    const data = await apiFetch('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({ username, email, password })
+    })
     saveAuth(data)
     showScreen('feed')
     loadFeed()
@@ -1009,6 +866,7 @@ function saveAuth(data) {
   currentUser = data.user
   localStorage.setItem('token', token)
   localStorage.setItem('user', JSON.stringify(currentUser))
+  // Laat admin knop zien als gebruiker admin is
   const adminNav = document.getElementById('nav-admin')
   if (adminNav) adminNav.style.display = currentUser.is_admin ? '' : 'none'
 }
@@ -1032,7 +890,7 @@ async function loadFeed() {
     const data = await apiFetch('/posts/feed?limit=30')
     renderFeed(data.posts || [])
   } catch(e) {
-    wrap.innerHTML = `<div class="feed-empty"><div class="feed-empty-icon">😬</div>${e.message}</div>`
+    wrap.innerHTML = `<div class="feed-empty"><div class="feed-empty-icon">😬</div>Feed kon niet geladen worden</div>`
   }
 }
 
@@ -1055,6 +913,7 @@ function postCardHTML(p) {
   const imgHTML = p.image_url
     ? `<img class="post-image" src="${esc(p.image_url)}" loading="lazy">`
     : `<div class="post-image-placeholder">🖼️</div>`
+
   return `<div class="post-card">
     <div class="post-header">
       <div class="post-avatar">${letter}</div>
@@ -1075,16 +934,20 @@ async function deletePost(id, btn) {
     await apiFetch('/posts/' + id, { method: 'DELETE' })
     btn.closest('.post-card').remove()
     toast('Post verwijderd')
-  } catch(e) { toast(e.message) }
+  } catch(e) {
+    toast(e.message)
+  }
 }
 
 // ── CREATE POST ──
 function previewImage(input) {
   selectedFile = input.files[0]
   if (!selectedFile) return
+
   const zone = document.getElementById('image-zone')
   const existing = zone.querySelector('.image-preview')
   if (existing) existing.remove()
+
   const img = document.createElement('img')
   img.className = 'image-preview'
   img.src = URL.createObjectURL(selectedFile)
@@ -1095,32 +958,44 @@ function previewImage(input) {
 
 async function doCreatePost() {
   if (!selectedFile) { toast('Kies eerst een foto'); return }
+
   const caption = document.getElementById('post-caption').value.trim()
   const fd = new FormData()
   fd.append('image', selectedFile)
   fd.append('caption', caption)
+
   const btn = document.querySelector('#screen-create .btn-primary')
-  btn.textContent = 'Bezig...'; btn.disabled = true
+  btn.textContent = 'Bezig...'
+  btn.disabled = true
+
   try {
     await apiFetch('/posts', { method: 'POST', body: fd })
     toast('Post geplaatst! 🎉')
     showScreen('feed')
-  } catch(e) { toast(e.message) }
-  finally { btn.textContent = 'Post plaatsen'; btn.disabled = false }
+  } catch(e) {
+    toast(e.message)
+  } finally {
+    btn.textContent = 'Post plaatsen'
+    btn.disabled = false
+  }
 }
 
 // ── PROFILE ──
 async function loadProfile() {
   if (!currentUser) return
+
   document.getElementById('profile-avatar').textContent   = currentUser.username[0].toUpperCase()
   document.getElementById('profile-username').textContent = currentUser.username
   document.getElementById('profile-bio').textContent      = currentUser.bio || ''
+
   const postsEl = document.getElementById('profile-posts')
   postsEl.innerHTML = '<div class="loading-wrap" style="grid-column:span 3"><div class="spinner"></div></div>'
+
   try {
     const data = await apiFetch(`/users/${currentUser.username}/posts`)
     const posts = data.posts || []
     document.getElementById('profile-post-count').textContent = posts.length
+
     if (!posts.length) {
       postsEl.innerHTML = '<div class="feed-empty" style="grid-column:span 3"><div class="feed-empty-icon">📷</div>Nog geen posts</div>'
       return
@@ -1168,13 +1043,17 @@ async function loadAdminUsers() {
         ${u.is_admin ? '<div class="admin-badge">admin</div>' : ''}
         <div class="admin-actions">
           ${u.id !== currentUser.id ? `
-            <button class="btn-admin-toggle" onclick="toggleAdmin(${u.id}, this)">${u.is_admin ? 'Admin af' : 'Admin'}</button>
+            <button class="btn-admin-toggle" onclick="toggleAdmin(${u.id}, this)">
+              ${u.is_admin ? 'Admin af' : 'Admin'}
+            </button>
             <button class="btn-admin-del" onclick="deleteUser(${u.id})">✕</button>
           ` : '<span style="font-size:0.7rem;color:var(--muted)">jij</span>'}
         </div>
       </div>
     `).join('')
-  } catch(e) { list.innerHTML = `<div class="feed-empty">${e.message}</div>` }
+  } catch(e) {
+    list.innerHTML = `<div class="feed-empty">${e.message}</div>`
+  }
 }
 
 async function loadAdminPosts() {
@@ -1201,12 +1080,15 @@ async function loadAdminPosts() {
         <button class="admin-post-del" onclick="adminDeletePost(${p.id})">🗑</button>
       </div>
     `).join('')
-  } catch(e) { list.innerHTML = `<div class="feed-empty">${e.message}</div>` }
+  } catch(e) {
+    list.innerHTML = `<div class="feed-empty">${e.message}</div>`
+  }
 }
 
 async function toggleAdmin(userId, btn) {
   try {
     const data = await apiFetch(`/users/${userId}/admin`, { method: 'PUT' })
+    // Update knop tekst en badge
     const row = document.getElementById(`user-row-${userId}`)
     if (data.is_admin) {
       btn.textContent = 'Admin af'
@@ -1222,7 +1104,9 @@ async function toggleAdmin(userId, btn) {
       if (badge) badge.remove()
     }
     toast(data.is_admin ? 'Admin toegevoegd' : 'Admin verwijderd')
-  } catch(e) { toast(e.message) }
+  } catch(e) {
+    toast(e.message)
+  }
 }
 
 async function deleteUser(userId) {
@@ -1231,7 +1115,9 @@ async function deleteUser(userId) {
     await apiFetch(`/admin/users/${userId}`, { method: 'DELETE' })
     document.getElementById(`user-row-${userId}`)?.remove()
     toast('Account verwijderd')
-  } catch(e) { toast(e.message) }
+  } catch(e) {
+    toast(e.message)
+  }
 }
 
 async function adminDeletePost(postId) {
@@ -1240,122 +1126,24 @@ async function adminDeletePost(postId) {
     await apiFetch(`/posts/${postId}`, { method: 'DELETE' })
     document.getElementById(`admin-post-${postId}`)?.remove()
     toast('Post verwijderd')
-  } catch(e) { toast(e.message) }
-}
-
-// ── GAME ──────────────────────────────────────────────────────────
-var gameInited = false
-var gameLetterHidden = false
-var gameBusy = false
-var gameUsedCats = []
-var GAME_CATEGORIES = []
-var GAME_LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-// Laad categorieën uit externe txt
-function loadGameCategories(cb) {
-  var xhr = new XMLHttpRequest()
-  xhr.open('GET', 'https://bimbambaap.github.io/categorieen.txt', true)
-  xhr.onload = function() {
-    if (xhr.status === 200) {
-      GAME_CATEGORIES = xhr.responseText.split('\n').map(w => w.trim()).filter(w => w.length > 0)
-    }
-    cb()
-  }
-  xhr.onerror = function() { cb() }
-  xhr.send()
-}
-
-function gameRandCategory() {
-  while (gameUsedCats.length >= 20) gameUsedCats.shift()
-  var available = GAME_CATEGORIES.filter(c => gameUsedCats.indexOf(c) === -1)
-  if (!available.length) { gameUsedCats = []; available = GAME_CATEGORIES.slice() }
-  var pick = available[Math.floor(Math.random() * available.length)]
-  gameUsedCats.push(pick)
-  try { localStorage.setItem('usedCats', JSON.stringify(gameUsedCats)) } catch(e) {}
-  return pick
-}
-
-function gameSpawnRipple(x, y) {
-  var r = document.createElement('div')
-  r.className = 'ripple'
-  r.style.left = x + 'px'
-  r.style.top  = y + 'px'
-  document.body.appendChild(r)
-  setTimeout(function() { r.remove() }, 550)
-}
-
-function gameNext(x, y) {
-  // Alleen uitvoeren als game scherm actief is
-  if (!document.getElementById('screen-game').classList.contains('active')) return
-  if (gameBusy) return
-  gameBusy = true
-
-  if (x !== undefined) gameSpawnRipple(x, y)
-
-  if (!gameLetterHidden) {
-    gameLetterHidden = true
-    document.getElementById('letter-section').classList.add('hidden-section')
-    document.getElementById('game-divider').classList.add('hidden-section')
-  }
-
-  var catEl = document.getElementById('category-text')
-  catEl.style.opacity = '0'
-  catEl.style.transform = 'translateX(-12px)'
-
-  setTimeout(function() {
-    catEl.textContent = gameRandCategory()
-    catEl.style.opacity = '1'
-    catEl.style.transform = 'translateX(0)'
-    gameBusy = false
-  }, 130)
-}
-
-function initGame() {
-  // Herstel usedCats uit localStorage
-  try { gameUsedCats = JSON.parse(localStorage.getItem('usedCats')) || [] } catch(e) { gameUsedCats = [] }
-
-  // Reset letter state zodat elke keer dat je het scherm opent de letter weer zichtbaar is
-  gameLetterHidden = false
-  gameBusy = false
-  document.getElementById('letter-section').classList.remove('hidden-section')
-  document.getElementById('game-divider').classList.remove('hidden-section')
-
-  var letterEl = document.getElementById('letter-bubble')
-  letterEl.textContent = GAME_LETTERS[Math.floor(Math.random() * GAME_LETTERS.length)]
-
-  if (GAME_CATEGORIES.length === 0) {
-    document.getElementById('category-text').textContent = 'Laden...'
-    loadGameCategories(function() {
-      document.getElementById('category-text').textContent = gameRandCategory()
-    })
-  } else {
-    document.getElementById('category-text').textContent = gameRandCategory()
+  } catch(e) {
+    toast(e.message)
   }
 }
-
-// Volledige scherm klik voor game — werkt ALLEEN als game actief is
-document.addEventListener('click', function(e) {
-  if (!document.getElementById('screen-game').classList.contains('active')) return
-  // Negeer klikken op de bottom nav
-  if (e.target.closest('.bottom-nav')) return
-  gameNext(e.clientX, e.clientY)
-})
-
-document.addEventListener('touchend', function(e) {
-  if (!document.getElementById('screen-game').classList.contains('active')) return
-  if (e.target.closest('.bottom-nav')) return
-  e.preventDefault()
-  var t = e.changedTouches[0]
-  gameNext(t.clientX, t.clientY)
-}, { passive: false })
 
 // ── API HELPER ──
 async function apiFetch(endpoint, options = {}) {
   const headers = {}
+
   if (token) headers['Authorization'] = `Bearer ${token}`
   if (!(options.body instanceof FormData)) headers['Content-Type'] = 'application/json'
+
   const res = await fetch(API + endpoint, { ...options, headers })
-  if (res.status === 401) { doLogout(); return }
+
+  if (res.status === 401) {
+    doLogout(); return
+  }
+
   const data = await res.json()
   if (!res.ok) throw new Error(data.error || 'Er ging iets mis')
   return data
@@ -1370,9 +1158,9 @@ function esc(str) {
 
 function timeAgo(dateStr) {
   const diff = (Date.now() - new Date(dateStr)) / 1000
-  if (diff < 60)    return 'Nu'
-  if (diff < 3600)  return Math.floor(diff/60) + 'm'
-  if (diff < 86400) return Math.floor(diff/3600) + 'u'
+  if (diff < 60)   return 'Nu'
+  if (diff < 3600) return Math.floor(diff/60) + 'm'
+  if (diff < 86400)return Math.floor(diff/3600) + 'u'
   return Math.floor(diff/86400) + 'd'
 }
 
